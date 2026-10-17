@@ -1,0 +1,29 @@
+# Datos arqueológicos, registros de campo y originales: privados
+/data/private/
+/reports/private/
+/data/public/*
+!/data/public/README.md
+# Evitar incorporar por accidente insumos de campo en raíz
+*.gpkg
+*.shp
+*.shx
+*.dbf
+*.kmz
+*.kml
+*.gpx
+*.tif
+*.tiff
+*.xlsx
+*.xls
+*.csv
+*.zip
+# Excepciones: metadatos públicos redactados y sintéticos
+!/metadata/*.csv
+!/tests/fixtures/*.csv
+# Entornos, temporales
+__pycache__/
+.pytest_cache/
+.venv/
+.ipynb_checkpoints/
+*.py[cod]
+.DS_Store

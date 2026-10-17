@@ -1,0 +1,21 @@
+name: canete-prediction
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - numpy
+  - pandas
+  - scipy
+  - geopandas
+  - shapely
+  - pyproj
+  - rasterio
+  - scikit-learn
+  - imbalanced-learn
+  - matplotlib
+  - pyarrow
+  - pyyaml
+  - pytest
+  - pip
+  - pip:
+      - -e .

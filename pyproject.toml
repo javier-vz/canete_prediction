@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "canete-archaeological-prediction"
+version = "0.1.0"
+description = "Reproducible audit and spatial predictive modelling in the Lower Canete Valley"
+requires-python = ">=3.11"
+
+[tool.setuptools.packages.find]
+where = ["src"]
