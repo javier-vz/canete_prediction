@@ -1,29 +1,31 @@
-# Datos arqueológicos, registros de campo y originales: privados
+# DENY by default: archaeological coordinates, GPS evidence, GIS data and images.
 /data/private/
 /reports/private/
-/data/public/*
-!/data/public/README.md
-# Evitar incorporar por accidente insumos de campo en raíz
+/figures/private/
+/.env
+*.tif
+*.tiff
 *.gpkg
 *.shp
 *.shx
 *.dbf
-*.kmz
+*.prj
 *.kml
+*.kmz
 *.gpx
-*.tif
-*.tiff
 *.xlsx
 *.xls
 *.csv
+*.csv.gz
+*.parquet
 *.zip
-# Excepciones: metadatos públicos redactados y sintéticos
-!/metadata/*.csv
-!/tests/fixtures/*.csv
-# Entornos, temporales
+*.jpg
+*.jpeg
+*.png
+*.webp
+*.pdf
 __pycache__/
 .pytest_cache/
-.venv/
+*.pyc
 .ipynb_checkpoints/
-*.py[cod]
 .DS_Store

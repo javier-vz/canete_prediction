@@ -1,0 +1,118 @@
+{
+  "schema_version": "1.0",
+  "project": "canete-rebuild-jcaa",
+  "privacy": "private originals, intended for local use; excluded from git",
+  "input_files": [
+    {
+      "group": "inputs_to_pipeline",
+      "path": "data/private/inbox/sitios_unificados_con_latlon.csv",
+      "size_bytes": 11044,
+      "sha256": "f8e3f0d742d57bd12baac5e0cf0445ef8ae8a620c45dcaf5828226203c5f0a31",
+      "source_name": "sitios_unificados_con_latlon.csv"
+    },
+    {
+      "group": "inputs_to_pipeline",
+      "path": "data/private/inbox/delimitados(1).kmz",
+      "size_bytes": 2785606,
+      "sha256": "424eabd7897e3af1f4a88d798626bc13945b5247d17712920cee0aeaa26f23c3",
+      "source_name": "delimitados(1).kmz"
+    },
+    {
+      "group": "inputs_to_pipeline",
+      "path": "data/private/inbox/declarados(1).kmz",
+      "size_bytes": 265378,
+      "sha256": "dc2eb53b74cd5857974273d9a7e97d5a928899f04b1f04cc9df2d85223eea888",
+      "source_name": "declarados(1).kmz"
+    },
+    {
+      "group": "inputs_to_pipeline",
+      "path": "data/private/inbox/grilla_modelo1_versionfinal.csv",
+      "size_bytes": 4313559,
+      "sha256": "5e9f361fe8664088994e98718d21db3519baff1c010a3a9783492190fb76366d",
+      "source_name": "grilla_modelo1_versionfinal.csv"
+    },
+    {
+      "group": "inputs_to_pipeline",
+      "path": "data/private/inbox/grilla_codigo2.csv",
+      "size_bytes": 72658164,
+      "sha256": "147a6552a751f2b6efae921e507a9d00441b9ae30f8b6102e125b76ad68b34fa",
+      "source_name": "grilla_codigo2.csv"
+    },
+    {
+      "group": "inputs_to_pipeline",
+      "path": "data/private/inbox/todo para mapas-20261017T022546Z-1-001.zip",
+      "size_bytes": 74068113,
+      "sha256": "fce36b2546892ad0461bb2fc2afb7148973d6ab7300960efb217f3fd76ff13b2",
+      "source_name": "todo para mapas-20261017T022546Z-1-001.zip"
+    },
+    {
+      "group": "inputs_to_pipeline",
+      "path": "data/private/inbox/Modelo con distancia a cuerpos de agua-20261017T032758Z-1-001.zip",
+      "size_bytes": 105332085,
+      "sha256": "6cbffbe4f672971ca2f4427167f65b50cb6cd5132933b912276c18ba2ceb3bba",
+      "source_name": "Modelo con distancia a cuerpos de agua-20261017T032758Z-1-001.zip"
+    },
+    {
+      "group": "field_material",
+      "path": "data/private/archive/campo/Prospeccion puntos.xlsx",
+      "size_bytes": 27962,
+      "sha256": "596222b8145b7513801858c26bcafd0a4da2d8d978fd5f7a465c8e5a0331112f",
+      "source_name": "Prospeccion puntos.xlsx"
+    },
+    {
+      "group": "field_material",
+      "path": "data/private/archive/campo/Puntos l_l 2 ida a campo(2).xlsx",
+      "size_bytes": 7643,
+      "sha256": "f4416c2619a1b5e382a90a7609cceb6bf93d0f293b5d28e8f4dc7d14e81b7c70",
+      "source_name": "Puntos l_l 2 ida a campo(2).xlsx"
+    },
+    {
+      "group": "field_material",
+      "path": "data/private/archive/campo/Puntos l_l 2 ida a campo(3).xlsx",
+      "size_bytes": 7643,
+      "sha256": "36c7cb69c087bccb6aceb521728d4a8e591cba647dece66143b7eca64c86e28e",
+      "source_name": "Puntos l_l 2 ida a campo(3).xlsx"
+    },
+    {
+      "group": "field_material",
+      "path": "data/private/archive/campo/nueva esperanza.kml",
+      "size_bytes": 1858,
+      "sha256": "4757b7defe3faf2c802e0e07a7d172215f032c1e3debb982c76b23f64b965704",
+      "source_name": "nueva esperanza.kml"
+    },
+    {
+      "group": "field_material",
+      "path": "data/private/archive/campo/cuiva poligono.kml",
+      "size_bytes": 1984,
+      "sha256": "aee991b0e1650adc349aee66cb1452a31aa4b996476aa4a9c8ca659aa8ca1e84",
+      "source_name": "cuiva poligono.kml"
+    },
+    {
+      "group": "field_material",
+      "path": "data/private/archive/campo/primera salida-20261017T014100Z-1-001.zip",
+      "size_bytes": 42110358,
+      "sha256": "a3a35c66975e3e18ab30813cd76063fe3b7e8da6dbda797b0c3fc4315aee2522",
+      "source_name": "primera salida-20261017T014100Z-1-001.zip"
+    },
+    {
+      "group": "historical_notebooks",
+      "path": "data/private/archive/historicos/Código con agua y putnos ya revisados-20261017T013731Z-1-001.zip",
+      "size_bytes": 1177107,
+      "sha256": "fa4c7caeeb765a5b9912ea93dcaed724083ca77ab9d3b4407c94752153015a36",
+      "source_name": "Código con agua y putnos ya revisados-20261017T013731Z-1-001.zip"
+    }
+  ],
+  "excluded_exact_duplicates": [
+    "grilla_modelo1_versionfinal(1).csv (identical to grilla_modelo1_versionfinal.csv)"
+  ],
+  "excluded_out_of_region": [
+    "sitios_mc.gpkg (from Amazonas/Chachapoyas, uploaded previously in error)"
+  ],
+  "existing_derived_files": [
+    "data/private/derived/grilla_50m_soporte_comun_802km2_CANDIDATA_PRIVADA.csv.gz",
+    "data/private/derived/grilla_recalculada_250m_PRIVADA.csv.gz",
+    "data/private/derived/grilla_recalculada_50m_PRIVADA.csv.gz",
+    "data/private/derived/inventario_maestro_previo_PRIVADO.csv",
+    "data/private/derived/revision_procedencia_y_coordenadas_PRIVADO.csv"
+  ]
+}

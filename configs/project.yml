@@ -1,0 +1,28 @@
+project:
+  crs: EPSG:32718
+  pre_field_collection: "MINCUL + PAVC (informado por el equipo; sin fecha individual por fila)"
+  original_points: 188
+source_files:
+  sites: sitios_unificados_con_latlon.csv
+  mincul_delimitados: delimitados(1).kmz
+  mincul_declarados: declarados(1).kmz
+  grid_250m: grilla_modelo1_versionfinal.csv
+  grid_50m: grilla_codigo2.csv
+  dem: DEM_vallebajo.tif
+  acequias: Acequias_antiguas.shp
+  rios: Rios_vallebajoCañete.shp
+matching:
+  proximity_m: 100
+  coordinate_tolerance_m: 5
+analysis:
+  # Two separate definitions; neither means archaeological absence.
+  historical_buffer_m: 30
+  crop_to_dem_valid: false
+  # historical_mask: rebuild values over inherited lattice / mask ONLY.
+  # polygon: rebuild a complete new lattice from explicitly approved polygon.
+  grid_mode: historical_mask
+  # Required if grid_mode = polygon:
+  approved_study_polygon: ""
+outputs:
+  private_dir: data/private/derived
+  report_dir: reports/private

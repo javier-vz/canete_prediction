@@ -1,93 +1,126 @@
-# Cañete — Predicción arqueológica y validación espacial
+# Lower Cañete Valley — Archaeological Predictive Modelling
 
-Repositorio de reconstrucción y análisis científico de modelos de prospección en el valle bajo de Cañete (Perú), derivado de la tesis de Dina Soledad Cornejo Meza. Proyecto independiente del código del modelo de corredores.
+**A reproducible reconstruction of archaeological inventories, spatial data and field-independent labels for a proposed JCAA paper.**
 
-**Estado actual: ETAPA 0 / Auditoría de fuentes.** Este repositorio contiene estructura, auditoría reproducible y decisiones pendientes; **todavía no reproduce modelos ni cifras de desempeño**. Los resultados de la tesis son antecedentes, no métricas validadas por este proyecto.
+> **Estado: ETAPA 1 · Reconstrucción de fuentes, inventario y grillas (verificada).**
+> Esta entrega es el **paquete completo de trabajo LOCAL**: incluye originales y resultados privados en `data/private/`, además de código y documentación. Para subir el proyecto a GitHub público, las ubicaciones quedan fuera mediante `.gitignore`.
+> El entrenamiento de modelos, la validación espacial y la integración con corredores están bloqueados hasta resolver la procedencia individual de registros y el soporte territorial común.
 
-## Pregunta científica
+## Alcance y contribución
 
-¿Cuándo un modelo entrenado con inventarios arqueológicos incompletos genera una priorización espacial defendible, y cuánto aporta frente a predictores ambientales sencillos y frente a superficies de circulación simulada?
+Este repositorio reelabora los datos y modelos predictivos de la tesis de Dina S. Cornejo Meza sobre el valle bajo de Cañete y prepara una comparación con el repositorio independiente [canete-corridor-model](https://github.com/javier-vz/canete-corridor-model). El estudio plantea cómo modelar evidencias arqueológicas usando inventarios incompletos sin confundir **falta de registro** con **ausencia verificada**.
 
-## Material que hemos recuperado (inventario preliminar)
+Los **188 registros puntuales** de `sitios_unificados_con_latlon.csv` son anteriores a las dos salidas de campo de Dina, de acuerdo con la confirmación del equipo. El CSV carece de fuente institucional por fila. **No se asigna automáticamente MINCUL ni PAVC a ningún punto.** La coincidencia espacial con las capas de MINCUL es una pista para revisión documental, no una identificación de fuente.
 
-- Modelo 1: `grilla_modelo1_versionfinal.csv`, **12 826 celdas de 250 m**, 84 celdas positivas (campo `presencia_sitio_nuevo`).
-- Modelo 2: `grilla_codigo2.csv`, **620 296 filas** en grilla nominal de 50 m, 196 positivas (`label`); contiene anomalías de altitud y pendiente que se deben auditar.
-- Un archivo con **188 puntos unificados** (`sitios_unificados_filtrados.csv`) dentro de `todo para mapas...zip`; validar procedencia y duplicados antes de usarlo.
-- Cuadernos originales de Google Colab (`Grilla.ipynb`, `V2.ipynb`, etc.), capas SIG, mapas y salidas de campo. Guardarlos privados como patrimonio metodológico; reconstruir el nuevo pipeline como scripts probados.
-- Primer reconocimiento: tabla con 9 filas. Segundo: tabla con 22 registros (17 marcados como predichos y 5 no predichos). Las categorías arqueológicas de la hoja requieren codificación explícita.
-
-Detalles y advertencias en [docs/01_AUDITORIA_INICIAL.md](docs/01_AUDITORIA_INICIAL.md).
-
-## Arranque rápido en Windows (Anaconda Prompt)
-
-Descomprimir este repositorio, abrir Anaconda Prompt en la carpeta y ejecutar:
-
-```bat
-python scripts\00_inventario.py
-python -m unittest discover -s tests -v
-```
-
-El inventario funciona con Python estándar, sin instalar paquetes. Para el futuro pipeline espacial:
+## Instalación (Anaconda Prompt, Windows)
 
 ```bat
 conda env create -f environment.yml
-conda activate canete-prediction
+conda activate canete-jcaa
 ```
 
-Copiar los ZIP, CSV y XLSX originales **sin descomprimirlos** dentro de `data/private/inbox/` y ejecutar:
+## Datos incorporados en esta entrega
+
+Esta versión contiene los materiales originales del usuario, organizados y **sin cambios de contenido**:
+
+- `data/private/inbox/`: siete fuentes necesarias para reproducir los scripts 00–04 (188 puntos unificados, KMZ MINCUL, grillas históricas y ZIP del DEM e hidrografía).
+- `data/private/raw/`: fuentes SIG extraídas y originales de trabajo ya preparados por el script 00.
+- `data/private/archive/campo/`: hojas de observaciones, KM(L) de Nueva Esperanza y Cuiva, y ZIP de la primera salida.
+- `data/private/archive/historicos/`: cinco cuadernos de los modelos originales, reunidos en su ZIP.
+- `data/private/derived/`: inventario maestro, dos grillas recalculadas y soporte territorial común **candidato** de 802 km².
+- `reports/private/`: auditorías de las etapas 00–04.
+- `metadata/input_manifest.json`: tamaños y huellas SHA-256 para comprobar integridad sin exponer coordenadas.
+
+No se incluye `sitios_mc.gpkg` porque corresponde a Chachapoyas. Se omite la segunda copia idéntica de `grilla_modelo1_versionfinal.csv`, y la copia previa del ZIP hidrológico si sus miembros son idénticos.
+
+**Aviso:** la presencia de datos locales dentro del ZIP no significa que sean públicos o autorizados para redistribución. Los recursos de MINCUL, PAVC y registros de campo requieren revisión de permisos antes de subir archivos geoespaciales a GitHub.
+
+La carpeta `data/private/` está excluida del versionado por `.gitignore`; los datos se incorporan al **ZIP descargable** para reproducir los análisis localmente, no al Git público. Al clonar GitHub, será necesario proporcionar los datos por el canal autorizado.
+
+Para verificar los archivos que recibiste y repetir las auditorías desde fuentes originales:
 
 ```bat
-python scripts\00_organizar_fuentes.py
-python scripts\00_inventario.py
+python scripts\00_verificar_datos.py
+python scripts\00_preparar_fuentes.py
 ```
 
-El organizador calcula SHA-256, detecta duplicados exactos y mueve cada fuente a una carpeta privada. **Nunca reemplaza ni modifica el contenido** de los originales. Produce manifiestos en `reports/private/`, excluidos de GitHub. Revisar los informes antes de avanzar.
+### Ejecutar
 
-## Plan de trabajo acordado
+```bat
+python scripts\00_preparar_fuentes.py
+python scripts\01_reconstruir_inventario.py
+python scripts\02_regenerar_grillas.py
+python scripts\03_auditar_historicos.py
+python scripts\04_soporte_comun_candidato.py
+python -m unittest discover -s tests -v
+```
 
-| Etapa | Propósito | Producto / condición de salida |
-|---|---|---|
-| 0 | Inventario y procedencia | Fuentes identificadas, hashes, duplicados y permisos documentados |
-| 1 | Reconstrucción arqueológica | Inventario por entidad y fecha, sin etiquetas de campo retrospectivas |
-| 2 | Reconstrucción SIG | DEM, agua, acequias, grillas 50/250 m y máscaras auditadas |
-| 3 | Predicción supervisada | Reproducción histórica separada y nueva validación espacial sin fuga |
-| 4 | Referencias ambientales | Altitud, pendiente, hidrología y modelos presencia-fondo, métricas comunes |
-| 5 | Modelo de corredores | Exportar E/T/F/L desde repositorio externo con commit fijo y reescalar |
-| 6 | Observación de campo | Alertas antes del campo, visitas, visibilidad y cobertura, fechas y permisos |
-| 7 | Comparaciones | Misma máscara/etiquetas/unidad, curvas de captura y escenarios |
-| 8 | Publicación | Figuras, tablas, material suplementario y paquete abierto sin ubicaciones sensibles |
+El código mantiene las fuentes originales intactas. Todas las salidas con ubicaciones se guardan en `data/private/derived/`; los reportes detallados en `reports/private/`. Estas rutas están excluidas de Git por `.gitignore`.
 
-La etapa 1 depende de la revisión de permisos del PAVC y de los registros ministeriales. En la etapa 5 se incorporará el repositorio [canete-corridor-model](https://github.com/javier-vz/canete-corridor-model) por una versión (commit) fija, no por copia informal de carpetas.
+## Qué se recalcula
 
-## Organización
+1. **Inventario previo:** 188 registros → identificadores persistentes PRE-0001…PRE-0188; columnas de procedencia no resuelta, cronología, control de coordenadas y relación espacial candidata con MINCUL.
+2. **Capas ambientales:** altitud y pendiente desde `DEM_vallebajo.tif`, descartando NoData y bordes sin vecinos válidos. Distancia aproximada al río y a acequias mediante rasterización de las geometrías sobre la malla del DEM y transformada de distancia; no sustituye distancias vectoriales exactas.
+3. **Grilla 50 m y grilla 250 m:** dos definiciones de presencia: (a) celda que contiene/intersecta un punto anterior, (b) celda con centro a ≤30 m de un punto (reproducción de regla histórica). El resto permanece **SIN ETIQUETA**, no «sin sitio» demostrado.
+4. **Auditoría histórica:** comparación exacta contra etiquetas originales, sin utilizarlas para reconstruir las nuevas.
+
+### Qué significa «reconstruir desde cero» en esta versión
+
+Por defecto, `grid_mode: historical_mask`: se reutilizan **solo las coordenadas de las celdas como soporte espacial**, y se recalculan las etiquetas y variables desde fuentes independientes. **No se reutilizan columnas ambientales, etiquetas, predicciones, SMOTE ni probabilidades históricas.** Así las cifras se pueden comparar directamente y auditar.
+
+Para reconstruir también **la malla y máscara territorial** completamente desde un polígono aprobado, cambia en `configs/project.yml`:
+
+```yaml
+analysis:
+  grid_mode: polygon
+  approved_study_polygon: "data/private/raw/area_estudio_aprobada.gpkg"
+```
+
+El script genera ambas cuadrículas ancladas a coordenadas UTM, recorta por los centros de celda interiores al polígono y registra sus nuevas extensiones. **No se ha seleccionado un polígono definitivo**: el shapefile administrativo recuperado cubre ~1551 km², mientras que el dominio de corredores cubre 801,625 km². Imponer uno sin justificarlo alteraría el objeto de estudio.
+
+## Archivos de salida (PRIVADOS)
 
 ```text
-canete-archaeological-prediction/
-├── README.md
-├── environment.yml
-├── pyproject.toml
-├── .gitignore
-├── configs/analysis.yml
-├── docs/01_AUDITORIA_INICIAL.md
-├── docs/02_DISENO_CIENTIFICO.md
-├── docs/03_DECISIONES_PENDIENTES.md
-├── docs/04_PRIVACIDAD_Y_PROCEDENCIA.md
-├── docs/05_DICCIONARIO_DE_DATOS.md
-├── scripts/00_organizar_fuentes.py
-├── scripts/00_inventario.py
-├── src/canete_prediction/{__init__.py,inventory.py,staging.py}
-├── tests/test_inventory.py
-├── data/private/{inbox,raw,interim,processed}/      [IGNORADO EN GIT]
-├── data/public/                               [solo después de revisión ética]
-├── reports/private/                          [IGNORADO EN GIT]
-├── reports/public/
-└── figures/                                   [figuras sin información sensible]
+data/private/derived/
+  inventario_maestro_previo_PRIVADO.csv
+  revision_procedencia_y_coordenadas_PRIVADO.csv
+  grilla_recalculada_50m_PRIVADA.csv.gz
+  grilla_recalculada_250m_PRIVADA.csv.gz
+  grilla_50m_soporte_comun_802km2_CANDIDATA_PRIVADA.csv.gz
+reports/private/
+  00_fuentes.json
+  01_inventario.json
+  02_grillas_recalculadas.json
+  03_revision_historicos.json
+  04_soporte_comun_CANDIDATO.json
 ```
 
-## Principios irrenunciables
+**Publicación responsable:** no incluir CSV originales, polígonos, puntos GPS, fotos ni rasters derivados georreferenciados sin verificar permisos del MINCUL y del PAVC. Ni siquiera el resumen agregado debe subirse sin revisión. Este repositorio entrega el código público; los datos se manejan localmente.
 
-1. Una etiqueta **sin registro** representa registro desconocido, no ausencia arqueológica comprobada.
-2. Distinguir fuentes fechadas antes/durante/después de los recorridos; las visitas de campo nunca deben entrar inadvertidamente en su propio entrenamiento.
-3. Separar ajuste y validación por bloques espaciales; cualquier sobremuestreo se hará solo en entrenamiento.
-4. Prohibir como predictor estándar distancias a todos los sitios que incluyen los sitios retenidos para evaluación.
-5. Publicar solamente productos aprobados y deslocalizados; nunca hojas, KML, fotografías GPS o puntos precisos de sitios.
+### Máscara común candidata (sin decisión definitiva)
+
+El script 04 intersecta el dominio de corredores de 250 m con los centros de las celdas de 50 m. El solapamiento es **320 576 celdas de 50 m = 801,44 km²**, muy próximo a los 801,625 km² de la malla gruesa. Produce una tabla con la celda contenedora de 250 m (`parent_250m_cell_id`). **Es una propuesta de comparación, no la delimitación científica aprobada.**
+
+## Próximas etapas (todavía NO ejecutadas)
+
+- **2 · Conciliación documental:** identificación por nombre/código MINCUL y por cuaderno PAVC; deduplicación conceptual sitio vs evidencia; versión arqueológica congelada antes de las salidas.
+- **3 · Soporte común 50/250 m:** delimitar área, escoger unidad de análisis y construir particiones espaciales; controlar registros compartidos y presencias colindantes.
+- **4 · Modelos:** reglas ambientales, RF sin filtración, PU/presencia-fondo cuando se justifique, calibración y evaluación espacial anidada.
+- **5 · Corredores:** integrar campos E, T, F y L en comparación reproducible con un commit fijado del repositorio independiente.
+- **6 · Campo:** alertas, evidencia y fotografías de Dina separadas de todos los procesos de entrenamiento y selección.
+
+## Estructura
+
+```text
+configs/project.yml             Parámetros y fuentes
+src/canete_rebuild/             Código de inventario, georreferenciación y auditoría
+scripts/                        Entradas independientes y verificables
+tests/                          Pruebas sintéticas sin coordenadas reales
+docs/                           Decisiones y resultados auditados
+data/private/                   Datos originales y derivados excluidos de Git
+reports/private/                QA con metadatos sensibles, excluido de Git
+```
+
+## Conceptos principales
+
+**Punto de registro ≠ sitio único**. **Intersección con MINCUL ≠ fuente ministerial confirmada**. **Cuadrícula no etiquetada ≠ ausencia arqueológica**. **Buffer de 30 m ≠ presencia verificada en toda la superficie de la celda**. **Validación retrospectiva de visitas dirigidas ≠ estimación imparcial de la prevalencia en todo el valle**.
